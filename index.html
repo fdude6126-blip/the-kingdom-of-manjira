@@ -3,391 +3,254 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Manjira Regency 👑</title>
-<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Kingdom of Manjira</title>
 <style>
-:root {
- --lav:#c9b5e8; --deep:#49345f; --pearl:#fff9ff;
- --silver:#d8d5e8; --twilight:#30243f;
-}
 *{box-sizing:border-box}
-body{
- margin:0;min-height:100vh;overflow:hidden;
- background:radial-gradient(ellipse at 50% 40%,#77618e,#30243f 70%);
- color:var(--pearl);font-family:'Cormorant Garamond',serif;
-}
-#world{position:fixed;inset:0;z-index:0}
-#world canvas{display:block}
-.fallback{
- position:fixed;inset:0;z-index:0;overflow:hidden;
- background:linear-gradient(#4d3c65 0%,#30243f 65%,#182a28 100%);
-}
-.fallback:before{
- content:"";position:absolute;width:75%;height:43%;
- left:12.5%;bottom:30%;background:linear-gradient(90deg,#bca8d8,#fff4ff,#bca8d8);
- clip-path:polygon(8% 25%,25% 25%,25% 0,75% 0,75% 25%,92% 25%,100% 100%,0 100%);
- opacity:.7;filter:drop-shadow(0 0 30px #d9c2ff);
-}
-.fallback:after{
- content:"";position:absolute;bottom:0;left:0;width:100%;height:30%;
- background:linear-gradient(#31483e,#182a28);
-}
-.screen{
- position:fixed;inset:0;z-index:2;display:flex;
- align-items:center;justify-content:center;padding:18px;
- background:rgba(24,15,35,.27);
- transition:opacity .6s ease;
-}
+body{margin:0;background:#100d20;color:#f8e5bc;font-family:Georgia,serif;overflow:hidden}
+#world{position:fixed;inset:0}
+canvas{display:block}
+.overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:linear-gradient(180deg,rgba(12,8,24,.12),rgba(12,8,24,.48));pointer-events:none}
+.content{max-width:480px;width:100%;pointer-events:auto}
+.eyebrow{font-size:11px;letter-spacing:5px;color:#e7c47e}
+h1{font-size:clamp(36px,10vw,60px);font-weight:normal;line-height:1.12;margin:24px 0;color:#ffe5aa;text-shadow:0 3px 25px #000}
+p{line-height:1.8;color:#f5e2ce}
+button{border:1px solid #f5d795;background:linear-gradient(130deg,#e9cb8a,#a97836);color:#25152a;padding:15px 23px;margin:8px;font-family:Georgia,serif;letter-spacing:2px;font-size:11px;cursor:pointer}
+button:active{transform:scale(.96)}
+.secondary{background:rgba(20,12,28,.5);color:#f8e5bc}
 .hidden{display:none!important}
-.panel{
- width:min(560px,95vw);max-height:88vh;overflow-y:auto;
- padding:28px 20px;text-align:center;border-radius:24px;
- border:1px solid #e8dcf5;background:rgba(48,36,63,.86);
- box-shadow:0 0 45px #c9b5e833;backdrop-filter:blur(12px);
-}
-h1,h2,.script{font-family:'Parisienne',cursive;font-weight:400}
-h1{font-size:clamp(48px,10vw,76px);margin:12px 0;color:#fff9ff}
-h2{font-size:clamp(38px,8vw,55px);margin:10px 0}
-p{font-size:20px;line-height:1.45}
-.eyebrow{font-size:12px;letter-spacing:4px;color:#e0d4f1}
-button{
- border:1px solid white;border-radius:30px;padding:13px 24px;
- margin:8px;background:linear-gradient(135deg,#eee3ff,#b9a2dc);
- color:#30243f;font:700 19px 'Cormorant Garamond',serif;
- cursor:pointer;touch-action:manipulation;
-}
-button:active{transform:scale(.97)}
-button.secondary{background:#ffffff20;color:white}
-#status,#hint{
- position:fixed;left:0;right:0;z-index:1;text-align:center;
- letter-spacing:3px;text-shadow:0 2px 8px #000;
- pointer-events:none;
-}
-#status{top:12px;font-size:12px}
-#hint{bottom:10px;font-size:11px}
-.menu-grid,.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
-.menu-card{
- padding:18px 8px;min-height:95px;border:1px solid #ffffff88;
- border-radius:16px;background:#c9b5e826;cursor:pointer;
- display:flex;flex-direction:column;align-items:center;justify-content:center;
-}
-.menu-card span{font-size:29px}
-.menu-card strong{font-size:19px}
-.memory{
- min-height:120px;background:linear-gradient(145deg,#bca8d8,#59446d);
- border:5px solid #eee5f6;color:white;display:flex;
- align-items:center;justify-content:center;flex-direction:column;
- cursor:pointer;font-size:18px;
-}
-.letter{white-space:pre-line;text-align:left;font-size:20px;line-height:1.6;background:#ffffff13;padding:14px;border-radius:12px}
-#modal{display:none;position:fixed;inset:0;z-index:5;background:#100a1ddd;align-items:center;justify-content:center;padding:20px}
-#modal .panel{max-width:400px}
+#status{position:fixed;top:22px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:4px;color:#f4d18c;pointer-events:none}
+#hint{position:fixed;bottom:20px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:2px;color:#f4d8a8;pointer-events:none}
 </style>
 </head>
 <body>
-
 <div id="world"></div>
-<div class="fallback" id="fallback"></div>
-<div id="status">THE MANJIRA REGENCY</div>
-<div id="hint">A ROYAL WORLD AWAITS</div>
+<div id="status">01 / 05 · THE ARRIVAL</div>
 
-<section class="screen" id="invitation">
- <div class="panel">
-  <div class="eyebrow">A ROYAL INVITATION</div>
-  <h1>The Manjira Regency</h1>
-  <p>To the most precious soul in my kingdom...</p>
-  <h2>Princess Manjira</h2>
-  <p>A little world has been created just for you.</p>
-  <button id="enterButton">Enter Your Kingdom ✨</button>
- </div>
-</section>
-
-<section class="screen hidden" id="entrance">
- <div class="panel">
-  <div class="eyebrow">THE ROYAL GATES AWAIT</div>
-  <h1>Welcome, Your Highness</h1>
-  <p>Your kingdom is ready to welcome you.</p>
-  <button id="openButton">Open the Palace Doors 👑</button>
- </div>
-</section>
-
-<section class="screen hidden" id="welcome">
- <div class="panel">
-  <div class="eyebrow">YOU HAVE ARRIVED</div>
-  <h1>Welcome Home, Princess</h1>
-  <p>Every corner of this kingdom holds a little piece of my heart.</p>
-  <div class="menu-grid">
-   <div class="menu-card" data-page="gallery"><span>🖼️</span><strong>Royal Gallery</strong></div>
-   <div class="menu-card" data-page="ballroom"><span>🕯️</span><strong>Grand Ballroom</strong></div>
-   <div class="menu-card" data-page="garden"><span>🌹</span><strong>Rose Garden</strong></div>
-   <div class="menu-card" data-page="finale"><span>👑</span><strong>Royal Surprise</strong></div>
-  </div>
- </div>
-</section>
-
-<section class="screen hidden" id="gallery">
- <div class="panel">
-  <div class="eyebrow">A COLLECTION OF MOMENTS</div>
-  <h2>Our Royal Gallery</h2>
-  <p>Eight little frames for memories that mean the world.</p>
-  <div class="gallery-grid">
-   <div class="memory" data-memory="Your smile is my favourite view.">💜<small>Memory I</small></div>
-   <div class="memory" data-memory="You make ordinary days magical.">🌙<small>Memory II</small></div>
-   <div class="memory" data-memory="Some moments become forever memories.">✨<small>Memory III</small></div>
-   <div class="memory" data-memory="Every little moment with you is special.">🦋<small>Memory IV</small></div>
-   <div class="memory" data-memory="You brighten my world.">🌷<small>Memory V</small></div>
-   <div class="memory" data-memory="My favourite story has you in it.">⭐<small>Memory VI</small></div>
-   <div class="memory" data-memory="The best memories are still ahead of us.">📖<small>Memory VII</small></div>
-   <div class="memory" data-memory="Always my favourite person.">💍<small>Memory VIII</small></div>
-  </div>
-  <button class="secondary back">← Back to Kingdom</button>
- </div>
-</section>
-
-<section class="screen hidden" id="ballroom">
- <div class="panel">
-  <div class="eyebrow">A DANCE BENEATH THE STARS</div>
-  <h2>The Grand Ballroom</h2>
-  <p>Five things I adore about you...</p>
-  <div class="letter">1. Your beautiful smile, which brightens my darkest days.
-
-2. Your heart and the kindness you carry.
-
-3. The way you make simple moments special.
-
-4. Your strength, dreams and everything that makes you YOU.
-
-5. The happiness you bring into my world.</div>
-  <h2>You are my favourite person. 💜</h2>
-  <button class="secondary back">← Back to Kingdom</button>
- </div>
-</section>
-
-<section class="screen hidden" id="garden">
- <div class="panel">
-  <div class="eyebrow">A SECRET PLACE FOR YOU</div>
-  <h2>The Rose Garden</h2>
-  <p>For the princess who deserves a thousand flowers.</p>
-  <div style="font-size:48px">🌹 🌷 🌸 🪻 🌹</div>
-  <button id="letterButton">Open Your Secret Letter 💌</button>
-  <div class="letter hidden" id="secretLetter">My dearest Princess Manjira,
-
-If I could give you one thing, it would be the ability to see yourself through my eyes.
-
-Then you would understand how special you are and how much happiness you bring into my world.
-
-No crown could make you more royal than the beauty you already carry.
-
-With all my love,
-Your admirer. 💜</div>
-  <button class="secondary back">← Back to Kingdom</button>
- </div>
-</section>
-
-<section class="screen hidden" id="finale">
- <div class="panel">
-  <div class="eyebrow">A MESSAGE FROM YOUR KINGDOM</div>
-  <h1>Happy Princess Day</h1>
-  <h2>Princess Manjira 👑</h2>
-  <p>May your days be filled with magic, your heart with happiness, and your life with all the love you deserve.</p>
-  <div style="font-size:42px">💜 ✨ 🌹 ✨ 💜</div>
-  <h2>Forever the queen of this little kingdom.</h2>
-  <button class="secondary back">← Back to Kingdom</button>
- </div>
-</section>
-
-<div id="modal">
- <div class="panel">
-  <h2>A Little Memory 💜</h2>
-  <p id="memoryText"></p>
-  <button id="closeModal">Close</button>
- </div>
+<div class="overlay" id="invitation">
+<div class="content">
+<div class="eyebrow">THE KINGDOM OF MANJIRA</div>
+<h1>AN INVITATION</h1>
+<p>Her Royal Highness<br><strong>Princess Manjira</strong></p>
+<p>A special evening awaits.</p>
+<button onclick="approach()">APPROACH THE PALACE</button>
+<button class="secondary" onclick="approach()">SKIP INTRO</button>
+</div>
 </div>
 
-<!-- IMPORTANT: BUTTONS ARE CONNECTED BEFORE THE 3D ENGINE LOADS -->
-<script>
-(function(){
- const ids=['invitation','entrance','welcome','gallery','ballroom','garden','finale'];
+<div class="overlay hidden" id="entrance">
+<div class="content">
+<div class="eyebrow">02 / 05 · THE GRAND ENTRANCE</div>
+<h1>THE GRAND ENTRANCE</h1>
+<p>The doors are waiting for you.</p>
+<button onclick="openDoors()">OPEN THE DOORS</button>
+<div id="welcome" class="hidden">
+<h2>Welcome, Your Highness.</h2>
+<p>Your palace awaits.</p>
+<button onclick="alert('The Royal Gallery is our next upgrade!')">THE ROYAL GALLERY</button>
+<button onclick="alert('The Grand Ballroom is coming next!')">THE GRAND BALLROOM</button>
+<button onclick="alert('The Rose Garden is coming next!')">THE ROSE GARDEN</button>
+</div>
+</div>
+</div>
 
- function show(id){
-  ids.forEach(x=>document.getElementById(x).classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
+<div id="hint">A KINGDOM BUILT WITH LOVE</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+const host=document.getElementById('world');
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x4d304a);
+scene.fog=new THREE.FogExp2(0x493044,0.009);
+
+const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,500);
+camera.position.set(0,9,34);
+camera.lookAt(0,5,0);
+
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.25;
+host.appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xffd9b0,0x33213c,2));
+
+const sun=new THREE.DirectionalLight(0xffd29a,3);
+sun.position.set(-15,25,15);
+sun.castShadow=true;
+sun.shadow.mapSize.set(1024,1024);
+scene.add(sun);
+
+const fill=new THREE.PointLight(0xffa65d,45,80);
+fill.position.set(0,10,8);
+scene.add(fill);
+
+const stone=new THREE.MeshStandardMaterial({color:0xe2c9a5,roughness:.85});
+const darkStone=new THREE.MeshStandardMaterial({color:0x80604e});
+const gold=new THREE.MeshStandardMaterial({color:0xd4a64c,metalness:.65,roughness:.3});
+const roofMat=new THREE.MeshStandardMaterial({color:0x48263e,roughness:.65});
+const grass=new THREE.MeshStandardMaterial({color:0x34442d});
+const pathMat=new THREE.MeshStandardMaterial({color:0xb69a80});
+const doorMat=new THREE.MeshStandardMaterial({color:0x482633,roughness:.4});
+const windowMat=new THREE.MeshStandardMaterial({color:0xffc66e,emissive:0xff9c35,emissiveIntensity:2});
+
+function box(w,h,d,mat,x,y,z,parent=scene){
+ const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+ m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;
+ parent.add(m);return m;
+}
+function tower(x,z,height=13){
+ const base=box(5,height,5,stone,x,height/2,z);
+ const roof=new THREE.Mesh(new THREE.ConeGeometry(3.9,6,4),roofMat);
+ roof.position.set(x,height+3,z);roof.rotation.y=Math.PI/4;
+ roof.castShadow=true;scene.add(roof);
+ const tip=new THREE.Mesh(new THREE.SphereGeometry(.3,12,12),gold);
+ tip.position.set(x,height+6.2,z);scene.add(tip);
+ for(let y=2.5;y<height-1;y+=3){
+  box(1.05,1.45,.12,windowMat,x,y,z+2.56);
  }
- function status(a,b){
-  document.getElementById('status').textContent=a;
-  document.getElementById('hint').textContent=b;
+}
+function tree(x,z,s=1){
+ const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.15*s,.25*s,2*s,8),darkStone);
+ trunk.position.set(x,s,z);scene.add(trunk);
+ const leaves=new THREE.Mesh(new THREE.SphereGeometry(1.25*s,10,8),grass);
+ leaves.position.set(x,2.5*s,z);leaves.castShadow=true;scene.add(leaves);
+}
+function flower(x,z,color){
+ const stem=new THREE.Mesh(new THREE.CylinderGeometry(.025,.04,.65,6),grass);
+ stem.position.set(x,.35,z);scene.add(stem);
+ const petal=new THREE.MeshStandardMaterial({color,roughness:.5});
+ for(let i=0;i<5;i++){
+  const a=i*Math.PI*2/5;
+  const p=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),petal);
+  p.scale.set(1,.5,1);p.position.set(x+Math.cos(a)*.17,.7,z+Math.sin(a)*.17);
+  scene.add(p);
  }
+}
+const ground=box(200,.5,200,grass,0,-.3,0);
+box(5,.12,42,pathMat,0,.02,15);
 
- document.getElementById('enterButton').addEventListener('click',function(){
-  show('entrance');
-  status('THE ROYAL GATES','YOUR PALACE AWAITS');
-  window.dispatchEvent(new Event('palaceApproach'));
- });
+for(let i=0;i<25;i++){
+ tree(-10-(i%5)*2,8+Math.floor(i/5)*6,.8+Math.random()*.5);
+ tree(10+(i%5)*2,8+Math.floor(i/5)*6,.8+Math.random()*.5);
+}
+for(let i=0;i<75;i++){
+ const x=(Math.random()-.5)*19;
+ const z=Math.random()*35+2;
+ flower(x,z,Math.random()>.5?0xffb9c9:0xffe3d1);
+}
 
- document.getElementById('openButton').addEventListener('click',function(){
-  const btn=this;
-  btn.disabled=true;
-  btn.textContent='The doors are opening...';
-  status('THE PALACE WELCOMES YOU','WELCOME HOME, PRINCESS');
-  window.dispatchEvent(new Event('palaceOpen'));
-  setTimeout(function(){
-   show('welcome');
-   status('WELCOME, PRINCESS MANJIRA','CHOOSE YOUR DESTINATION');
-  },2200);
- });
+// Palace main building
+box(24,12,9,stone,0,6,-4);
+box(27,1,10,darkStone,0,12,-4);
+box(10,16,8,stone,0,8,-10);
+const centralRoof=new THREE.Mesh(new THREE.ConeGeometry(7,8,4),roofMat);
+centralRoof.position.set(0,20,-10);
+centralRoof.rotation.y=Math.PI/4;
+scene.add(centralRoof);
 
- document.querySelectorAll('.menu-card').forEach(card=>{
-  card.addEventListener('click',()=>{
-   show(card.dataset.page);
-   status('THE MANJIRA REGENCY',card.dataset.page.toUpperCase());
-  });
- });
+// Side towers
+tower(-14,-7,12);
+tower(14,-7,12);
+tower(-9,-13,10);
+tower(9,-13,10);
 
- document.querySelectorAll('.back').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-   show('welcome');
-   status('WELCOME, PRINCESS MANJIRA','CHOOSE YOUR DESTINATION');
-  });
- });
+// Golden windows
+for(let x=-9;x<=9;x+=3){
+ box(1.2,2,.15,windowMat,x,6.5,.57);
+ box(1.2,2,.15,windowMat,x,6.5,-8.57);
+}
+for(let x=-9;x<=9;x+=3){
+ box(1.2,2,.15,windowMat,x,11,-8.57);
+}
 
- document.querySelectorAll('.memory').forEach(item=>{
-  item.addEventListener('click',()=>{
-   document.getElementById('memoryText').textContent=item.dataset.memory;
-   document.getElementById('modal').style.display='flex';
-  });
- });
+// Main entrance
+box(7,7,.7,darkStone,0,3.5,.65);
+const leftDoor=new THREE.Group();
+const rightDoor=new THREE.Group();
+leftDoor.position.set(0,0,1);
+rightDoor.position.set(0,0,1);
+scene.add(leftDoor,rightDoor);
+box(2,5,.35,doorMat,-2,2.5,0,leftDoor);
+box(2,5,.35,doorMat,2,2.5,0,rightDoor);
+box(.12,4,.1,gold,-.8,2.5,.2,leftDoor);
+box(.12,4,.1,gold,.8,2.5,.2,rightDoor);
+const handle=new THREE.Mesh(new THREE.SphereGeometry(.13),gold);
+handle.position.set(-.4,2.5,.25);leftDoor.add(handle);
+const handle2=handle.clone();handle2.position.set(.4,2.5,.25);rightDoor.add(handle2);
 
- document.getElementById('closeModal').addEventListener('click',()=>{
-  document.getElementById('modal').style.display='none';
- });
+// Fountain
+const waterMat=new THREE.MeshStandardMaterial({color:0x82b9ca,metalness:.4,roughness:.2});
+const fountain=new THREE.Mesh(new THREE.CylinderGeometry(2,2.3,.5,32),darkStone);
+fountain.position.set(0,.3,9);scene.add(fountain);
+const water=new THREE.Mesh(new THREE.CylinderGeometry(1.8,1.8,.08,32),waterMat);
+water.position.set(0,.6,9);scene.add(water);
+const waterTop=new THREE.Mesh(new THREE.CylinderGeometry(.4,.65,1.2,20),darkStone);
+waterTop.position.set(0,1,9);scene.add(waterTop);
 
- document.getElementById('letterButton').addEventListener('click',()=>{
-  document.getElementById('secretLetter').classList.remove('hidden');
- });
+// Magical particles
+const particleGeo=new THREE.BufferGeometry();
+const positions=[];
+for(let i=0;i<300;i++){
+ positions.push((Math.random()-.5)*45,Math.random()*20,Math.random()*45-10);
+}
+particleGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
+const particleMat=new THREE.PointsMaterial({color:0xffd68b,size:.13,transparent:true,opacity:.85});
+const particles=new THREE.Points(particleGeo,particleMat);
+scene.add(particles);
 
- /* The 3D scene loads separately. Buttons still work if it fails. */
- window.addEventListener('load',async()=>{
-  try{
-   const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
-   const scene=new THREE.Scene();
-   scene.background=new THREE.Color(0x30243f);
-   scene.fog=new THREE.Fog(0x49345f,30,95);
+let moving=false,doorsOpen=false,started=false;
+let clock=new THREE.Clock();
 
-   const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,150);
-   camera.position.set(0,8,34);
-   const renderer=new THREE.WebGLRenderer({antialias:true});
-   renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
-   renderer.setSize(innerWidth,innerHeight);
-   document.getElementById('world').appendChild(renderer.domElement);
-   document.getElementById('fallback').style.display='none';
+window.approach=function(){
+ if(started)return;
+ started=true;moving=true;
+ document.getElementById('invitation').classList.add('hidden');
+ document.getElementById('status').textContent='APPROACHING THE PALACE';
+ document.getElementById('hint').textContent='THE KINGDOM AWAITS';
+};
 
-   scene.add(new THREE.HemisphereLight(0xe8d9ff,0x49344f,2));
-   const light=new THREE.DirectionalLight(0xffedff,2.5);
-   light.position.set(-10,20,12);
-   scene.add(light);
-   const glow=new THREE.PointLight(0xc7a5ff,35,55);
-   glow.position.set(0,10,5);
-   scene.add(glow);
+window.openDoors=function(){
+ if(doorsOpen)return;
+ doorsOpen=true;
+ document.getElementById('welcome').classList.remove('hidden');
+ document.getElementById('status').textContent='02 / 05 · THE GRAND ENTRANCE';
+};
 
-   const mat=(color,metalness=0,roughness=.6)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
-   const lavender=mat(0xbba5d8),pearl=mat(0xfff5ff),silver=mat(0xd8d5e8,.5,.3),violet=mat(0x654d80),gold=mat(0xe9d4ff,.6,.25);
+function animate(){
+ requestAnimationFrame(animate);
+ const t=clock.getElapsedTime();
+ particles.rotation.y=t*.012;
+ water.scale.y=1+Math.sin(t*2)*.025;
+ fill.intensity=40+Math.sin(t*1.5)*8;
 
-   function block(parent,w,h,d,m,x,y,z){
-    const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);
-    o.position.set(x,y,z);o.castShadow=true;parent.add(o);return o;
-   }
-   const floor=new THREE.Mesh(new THREE.PlaneGeometry(150,150),mat(0x344a42));
-   floor.rotation.x=-Math.PI/2;floor.position.y=-.2;scene.add(floor);
-
-   block(scene,7,.15,34,silver,0,.05,17);
-   for(let z=2;z<35;z+=2.4)block(scene,6.7,.04,.08,pearl,0,.14,z);
-
-   block(scene,22,10,8,lavender,0,6,-4);
-   block(scene,24,.65,9,pearl,0,11.25,-4);
-   block(scene,11,6,7,pearl,0,14.5,-4);
-   const roof=new THREE.Mesh(new THREE.ConeGeometry(7.2,5,4),violet);
-   roof.position.set(0,20,-4);roof.rotation.y=Math.PI/4;scene.add(roof);
-
-   function tower(x,z,h){
-    const body=new THREE.Mesh(new THREE.CylinderGeometry(2.1,2.35,h,12),pearl);
-    body.position.set(x,h/2,z);scene.add(body);
-    const cap=new THREE.Mesh(new THREE.ConeGeometry(2.8,5,12),violet);
-    cap.position.set(x,h+2.5,z);scene.add(cap);
-    const tip=new THREE.Mesh(new THREE.SphereGeometry(.3,12,10),gold);
-    tip.position.set(x,h+5.1,z);scene.add(tip);
-   }
-   tower(-10,-5,13);tower(10,-5,13);tower(-10,1,11);tower(10,1,11);
-
-   for(let x=-8;x<=8;x+=4){
-    block(scene,1.3,2.3,.18,violet,x,7,.12);
-    block(scene,1.05,1.9,.1,gold,x,7,.02);
-   }
-
-   block(scene,7,.5,1,silver,0,3.5,.55);
-   block(scene,.55,7,1,pearl,-3.3,3.5,.55);
-   block(scene,.55,7,1,pearl,3.3,3.5,.55);
-   block(scene,7.5,.6,1.1,silver,0,7,.55);
-
-   const left=new THREE.Group();left.position.set(-3,0,.9);scene.add(left);
-   block(left,3,6,.35,violet,1.5,3,0);
-   block(left,2.5,5.5,.12,silver,1.5,3,-.22);
-   const right=new THREE.Group();right.position.set(3,0,.9);scene.add(right);
-   block(right,3,6,.35,violet,-1.5,3,0);
-   block(right,2.5,5.5,.12,silver,-1.5,3,-.22);
-
-   for(let i=0;i<5;i++)block(scene,10-i*.65,.35,1.2,silver,0,.2+i*.34,2.1-i*1.05);
-
-   function tree(x,z){
-    const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.25,.4,3,10),mat(0x55404d));
-    trunk.position.set(x,1.5,z);scene.add(trunk);
-    const leaves=new THREE.Mesh(new THREE.SphereGeometry(1.5,14,12),mat(0x71826c));
-    leaves.position.set(x,3.5,z);scene.add(leaves);
-   }
-   [-15,-12,12,15].forEach(x=>{tree(x,4);tree(x,15)});
-
-   const fountain=new THREE.Mesh(new THREE.CylinderGeometry(2.2,2.4,.55,32),silver);
-   fountain.position.set(0,.3,10);scene.add(fountain);
-   const water=new THREE.Mesh(new THREE.CylinderGeometry(1.4,1.7,.45,32),lavender);
-   water.position.set(0,.8,10);scene.add(water);
-
-   const positions=[];
-   for(let i=0;i<300;i++)positions.push((Math.random()-.5)*55,Math.random()*18,(Math.random()-.5)*50);
-   const geo=new THREE.BufferGeometry();
-   geo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
-   const stars=new THREE.Points(geo,new THREE.PointsMaterial({color:0xf1dcff,size:.13}));
-   scene.add(stars);
-
-   let targetZ=34,doors=false;
-   window.addEventListener('palaceApproach',()=>{targetZ=20});
-   window.addEventListener('palaceOpen',()=>{targetZ=13;doors=true});
-
-   function animate(){
-    requestAnimationFrame(animate);
-    camera.position.z+=(targetZ-camera.position.z)*.025;
-    camera.position.y+=(7-camera.position.y)*.025;
-    camera.lookAt(0,5,-1);
-    if(doors){
-     left.rotation.y+=(-1.25-left.rotation.y)*.045;
-     right.rotation.y+=(1.25-right.rotation.y)*.045;
-    }
-    stars.rotation.y+=.0005;
-    renderer.render(scene,camera);
-   }
-   animate();
-
-   addEventListener('resize',()=>{
-    camera.aspect=innerWidth/innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth,innerHeight);
-   });
-  }catch(error){
-   console.warn('3D scene unavailable; the website navigation remains active.',error);
-   document.getElementById('fallback').style.display='block';
+ if(moving){
+  camera.position.z-=.055;
+  camera.position.y+=.012;
+  camera.lookAt(0,5,0);
+  if(camera.position.z<17){
+   moving=false;
+   document.getElementById('entrance').classList.remove('hidden');
+   document.getElementById('hint').textContent='TAP OPEN THE DOORS';
   }
- });
-})();
+ }
+ if(doorsOpen){
+  leftDoor.rotation.y=-Math.min(1.25,(leftDoor.rotation.y<0?Math.abs(leftDoor.rotation.y):0)+.018);
+  rightDoor.rotation.y=Math.min(1.25,(rightDoor.rotation.y>0?rightDoor.rotation.y:0)+.018);
+ }
+ renderer.render(scene,camera);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+ camera.aspect=innerWidth/innerHeight;
+ camera.updateProjectionMatrix();
+ renderer.setSize(innerWidth,innerHeight);
+});
 </script>
 </body>
 </html>
