@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>The Manjira Regency</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#100d20;color:#f8e5bc;font-family:Georgia,serif}#world{position:fixed;inset:0}canvas{display:block;width:100%;height:100%}
-.hud{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;background:linear-gradient(180deg,rgba(12,8,24,.15),rgba(12,8,24,.55));pointer-events:none}.content{width:min(100%,520px);pointer-events:auto}.eyebrow{font-size:10px;letter-spacing:4px;color:#e7c47e}h1{font-size:clamp(34px,9vw,58px);font-weight:normal;line-height:1.12;margin:20px 0;color:#ffe5aa;text-shadow:0 3px 25px #000}h2{font-size:clamp(25px,7vw,38px);font-weight:normal;color:#ffe5aa;margin:12px 0}p{line-height:1.75;color:#f5e2ce;font-size:14px}button{border:1px solid #f5d795;background:linear-gradient(130deg,#e9cb8a,#a97836);color:#25152a;padding:14px 19px;margin:6px;font-family:Georgia,serif;letter-spacing:1.5px;font-size:10px;cursor:pointer;box-shadow:0 5px 20px #0006}button:active{transform:scale(.97)}.secondary{background:rgba(20,12,28,.85);color:#f8e5bc}.hidden{display:none!important}#status{position:fixed;z-index:4;top:18px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:3px;color:#f4d18c;pointer-events:none;text-shadow:0 2px 8px #000}#hint{position:fixed;z-index:4;bottom:15px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:2px;color:#f4d8a8;pointer-events:none;text-shadow:0 2px 8px #000}
-#galleryControls{position:fixed;z-index:8;bottom:42px;left:0;right:0;display:flex;justify-content:center;flex-wrap:wrap;gap:4px;pointer-events:auto}#galleryControls button{padding:12px 13px;margin:2px;font-size:9px}#photoView{position:fixed;z-index:20;inset:0;background:rgba(6,3,12,.96);display:flex;align-items:center;justify-content:center;padding:18px}.viewer{width:min(94vw,560px);text-align:center;max-height:95vh;overflow:auto}.viewer img{max-width:100%;max-height:62vh;object-fit:contain;border:5px solid #d9b76e;box-shadow:0 0 35px #d9b76e55}.viewer .caption{font-size:15px;line-height:1.7;margin:14px 5px;color:#f8e5bc}.viewer .time{font-size:10px;letter-spacing:3px;color:#e8bd70}.viewer .title{font-size:21px;color:#ffe5aa;margin:10px}.viewerNav{display:flex;justify-content:center;flex-wrap:wrap;gap:5px}.viewerNav button{padding:12px 13px;margin:3px}
+.hud{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;background:linear-gradient(180deg,rgba(12,8,24,.15),rgba(12,8,24,.55));pointer-events:none}.content{width:min(100%,520px);pointer-events:auto}.eyebrow{font-size:10px;letter-spacing:4px;color:#e7c47e}h1{font-size:clamp(34px,9vw,58px);font-weight:normal;line-height:1.12;margin:20px 0;color:#ffe5aa;text-shadow:0 3px 25px #000}h2{font-size:clamp(25px,7vw,38px);font-weight:normal;color:#ffe5aa;margin:12px 0}p{line-height:1.75;color:#f5e2ce;font-size:14px}button{border:1px solid #f5d795;background:linear-gradient(130deg,#e9cb8a,#a97836);color:#25152a;padding:14px 19px;margin:6px;font-family:Georgia,serif;letter-spacing:1.5px;font-size:10px;cursor:pointer;box-shadow:0 5px 20px #0006}.secondary{background:rgba(20,12,28,.85);color:#f8e5bc}.hidden{display:none!important}#status{position:fixed;z-index:4;top:18px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:3px;color:#f4d18c;pointer-events:none;text-shadow:0 2px 8px #000}#hint{position:fixed;z-index:4;bottom:15px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:2px;color:#f4d8a8;pointer-events:none;text-shadow:0 2px 8px #000}
+#galleryControls{position:fixed;z-index:8;bottom:42px;left:0;right:0;display:flex;justify-content:center;flex-wrap:wrap;gap:4px;pointer-events:auto}#galleryControls button{padding:12px 13px;margin:2px;font-size:9px}#photoView{position:fixed;z-index:20;inset:0;background:rgba(6,3,12,.96);display:flex;align-items:center;justify-content:center;padding:18px}.viewer{width:min(94vw,560px);text-align:center;max-height:95vh;overflow:auto}.viewer img{max-width:100%;max-height:62vh;object-fit:contain;border:5px solid #d9b76e;box-shadow:0 0 35px #d9b76e55}.viewer .caption{font-size:15px;line-height:1.7;margin:14px 5px;color:#f8e5bc}.viewer .time{font-size:10px;letter-spacing:3px;color:#e8bd70}.viewer .title{font-size:21px;color:#ffe5aa;margin:10px}
 @media(max-height:650px){.hud{padding:12px}.eyebrow{font-size:9px}h1{margin:10px 0}p{margin:8px 0}button{padding:11px 14px}}
 </style>
 </head>
@@ -15,8 +16,8 @@
 <div class="hud" id="invitation"><div class="content"><div class="eyebrow">THE MANJIRA REGENCY</div><h1>AN INVITATION</h1><p>Her Royal Highness<br><strong>Princess Manjira</strong></p><p>A special evening awaits.</p><button onclick="approach()">APPROACH THE PALACE</button><button class="secondary" onclick="approach()">SKIP INTRO</button></div></div>
 <div class="hud hidden" id="doorPrompt"><div class="content"><div class="eyebrow">THE GRAND ENTRANCE</div><h1>The doors await</h1><p>Step into your kingdom, Your Highness.</p><button onclick="openDoors()">OPEN THE DOORS</button></div></div>
 <div class="hud hidden" id="welcome"><div class="content"><div class="eyebrow">WELCOME TO YOUR KINGDOM</div><h1>Welcome, Your Highness.</h1><p>Princess Manjira, every corner of this palace has been prepared with love, just for you.</p><p><em>May this little kingdom remind you how precious you are.</em></p><div style="margin-top:18px"><button onclick="enterGallery()">THE ROYAL GALLERY</button><button class="secondary" onclick="comingSoon('The Grand Ballroom')">THE GRAND BALLROOM</button><button class="secondary" onclick="comingSoon('The Rose Garden')">THE ROSE GARDEN</button></div></div></div>
-<div id="galleryControls" class="hidden"><button class="secondary" onclick="returnToHall()">← RETURN TO ROYAL HALL</button></div>
-<div id="photoView" class="hidden" onclick="closePhoto(event)"><div class="viewer" onclick="event.stopPropagation()"><img id="viewerImage" src="" alt="Our memory"><div class="time" id="viewerTime"></div><div class="title" id="viewerTitle"></div><div class="caption" id="viewerCaption"></div><div class="viewerNav"><button class="secondary" onclick="previousMemory()">← PREVIOUS</button><button onclick="closePhoto()">CLOSE MEMORY</button><button class="secondary" onclick="nextMemory()">NEXT MEMORY →</button></div></div></div>
+<div id="galleryControls" class="hidden"><button class="secondary" onclick="previousMemory()">← PREVIOUS</button><button onclick="nextMemory()">NEXT MEMORY →</button><button class="secondary" onclick="returnToHall()">RETURN TO HALL</button></div>
+<div id="photoView" class="hidden" onclick="closePhoto(event)"><div class="viewer" onclick="event.stopPropagation()"><img id="viewerImage" src="" alt="Our memory"><div class="time" id="viewerTime"></div><div class="title" id="viewerTitle"></div><div class="caption" id="viewerCaption"></div><button onclick="closePhoto()">CLOSE MEMORY</button></div></div>
 <script>
 const memories=[
 {file:'IMG-20261119-WA0000.jpg',caption:'The start of many more. Our first solo outing! 📸'},
@@ -34,137 +35,94 @@ const memories=[
 {file:'IMG-20261119-WA0012.jpg',caption:'Humse panga mat lena, warna game over! 😉'},
 {file:'IMG-20261119-WA0013.jpg',caption:'She doesn’t just wear the crown, she owns it. ❤️'}
 ];
-// Share the memory list with the Three.js module below.
-window.memories=memories;
 function comingSoon(name){alert(name+' is the next royal room to be created. ❤️')}
 let viewerIndex=0;
-function showPhoto(i){viewerIndex=(i+memories.length)%memories.length;const m=memories[viewerIndex];document.getElementById('viewerImage').src='gallery/'+m.file;document.getElementById('viewerTime').textContent=m.time||'';document.getElementById('viewerTitle').textContent=m.title||'';document.getElementById('viewerCaption').textContent=m.caption;document.getElementById('photoView').classList.remove('hidden')}
-function closePhoto(e){if(e&&e.target!==document.getElementById('photoView'))return;document.getElementById('photoView').classList.add('hidden')}
+function showPhoto(i){viewerIndex=(i+memories.length)%memories.length;const m=memories[viewerIndex];$('viewerImage').src='gallery/'+m.file;$('viewerTime').textContent=m.time||'';$('viewerTitle').textContent=m.title||'';$('viewerCaption').textContent=m.caption;$('photoView').classList.remove('hidden')}
+function closePhoto(e){if(e&&e.target!==$('photoView'))return;$('photoView').classList.add('hidden')}
 function nextMemory(){showPhoto(viewerIndex+1)}function previousMemory(){showPhoto(viewerIndex-1)}
 function approach(){window.dispatchEvent(new Event('palace-approach'))}
 function openDoors(){window.dispatchEvent(new Event('palace-open'))}
 function enterGallery(){window.dispatchEvent(new Event('palace-gallery'))}
 function returnToHall(){window.dispatchEvent(new Event('palace-return'))}
+function $(id){return document.getElementById(id)}
 </script>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-// Module scripts have their own scope; explicitly read the shared photo list.
-const memories=window.memories;
 const $=id=>document.getElementById(id),host=$('world');
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x241827);scene.fog=new THREE.Fog(0x241827,65,155);
 const camera=new THREE.PerspectiveCamera(52,innerWidth/innerHeight,.1,300);camera.position.set(0,8,35);camera.lookAt(0,5,0);
-const isMobile=innerWidth<760;const renderer=new THREE.WebGLRenderer({antialias:!isMobile,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1:1.2));renderer.shadowMap.enabled=false;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;host.appendChild(renderer.domElement);
-scene.add(new THREE.HemisphereLight(0xffdfbb,0x302039,1.8));const sun=new THREE.DirectionalLight(0xffd29a,3);sun.position.set(-15,25,15);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);scene.add(sun);
-const warm=new THREE.PointLight(0xffad61,48,90);warm.position.set(0,10,8);scene.add(warm);
-const mat=(color,metalness=0,roughness=.7,emissive=0x000000)=>new THREE.MeshStandardMaterial({color,metalness,roughness,emissive,emissiveIntensity:1.4});
+// Mobile-friendly renderer: lower pixel ratio, no expensive real-time shadows.
+const renderer=new THREE.WebGLRenderer({antialias:false,powerPreference:'high-performance'});
+renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.15));renderer.shadowMap.enabled=false;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;host.appendChild(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xffdfbb,0x302039,1.8));
+const sun=new THREE.DirectionalLight(0xffd29a,2.3);sun.position.set(-15,25,15);scene.add(sun);
+const warm=new THREE.PointLight(0xffad61,32,90);warm.position.set(0,10,8);scene.add(warm);
+const mat=(color,metalness=0,roughness=.7,emissive=0x000000)=>new THREE.MeshStandardMaterial({color,metalness,roughness,emissive,emissiveIntensity:1.25});
 const stone=mat(0xe2c9a5,0,.85),darkStone=mat(0x80604e),gold=mat(0xd4a64c,.7,.28),roofMat=mat(0x48263e),grass=mat(0x34442d),pathMat=mat(0xb69a80),doorMat=mat(0x482633,.1,.4),windowMat=mat(0xffc66e,0,.3,0xff9c35),marble=mat(0xd9c5ad,.12,.28),wall=mat(0x4a2c3b,.05,.65),red=mat(0x541f35,.1,.45),dark=mat(0x241522);
-function box(w,h,d,material,x,y,z,parent=scene){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.position.set(x,y,z);m.castShadow=false;m.receiveShadow=false;parent.add(m);return m}
-function sphere(r,material,x,y,z,parent=scene){const m=new THREE.Mesh(new THREE.SphereGeometry(r,10,8),material);m.position.set(x,y,z);parent.add(m);return m}
-function cylinder(rt,rb,h,material,x,y,z,parent=scene){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,12),material);m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m}
+function box(w,h,d,material,x,y,z,parent=scene){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.position.set(x,y,z);parent.add(m);return m}
+function sphere(r,material,x,y,z,parent=scene){const m=new THREE.Mesh(new THREE.SphereGeometry(r,12,8),material);m.position.set(x,y,z);parent.add(m);return m}
+function cylinder(rt,rb,h,material,x,y,z,parent=scene){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,12),material);m.position.set(x,y,z);parent.add(m);return m}
 function tower(x,z,height=13){box(5,height,5,stone,x,height/2,z);const roof=new THREE.Mesh(new THREE.ConeGeometry(3.9,6,4),roofMat);roof.position.set(x,height+3,z);roof.rotation.y=Math.PI/4;scene.add(roof);sphere(.3,gold,x,height+6.2,z);for(let y=2.5;y<height-1;y+=3)box(1.05,1.45,.12,windowMat,x,y,z+2.56)}
 function tree(x,z,s=1){cylinder(.18,.25,2*s,darkStone,x,s,z);const leaves=new THREE.Mesh(new THREE.SphereGeometry(1.25*s,8,6),grass);leaves.position.set(x,2.5*s,z);scene.add(leaves)}
 function flower(x,z,color){cylinder(.025,.04,.65,grass,x,.35,z);for(let i=0;i<5;i++){const a=i*Math.PI*2/5;sphere(.15,mat(color),x+Math.cos(a)*.17,.7,z+Math.sin(a)*.17)}}
-// OUTSIDE PALACE — retained gold sandstone design
+// Exterior palace grounds, with fewer decorative objects for smoother mobile performance.
 box(200,.5,200,grass,0,-.3,0);box(5,.12,42,pathMat,0,.02,15);
-for(let i=0;i<7;i++){tree(-10-(i%4)*2,8+Math.floor(i/4)*9,.8);tree(10+(i%4)*2,8+Math.floor(i/4)*9,.8)}for(let i=0;i<24;i++)flower((Math.random()-.5)*19,Math.random()*35+2,Math.random()>.5?0xffb9c9:0xffe3d1);
-// Split the front facade around the doorway so the camera can truly enter.
-box(8.5,12,9,stone,-7.75,6,-4);box(8.5,12,9,stone,7.75,6,-4);box(7,5,9,stone,0,9.5,-4);box(27,1,10,darkStone,0,12,-4);box(10,16,8,stone,0,8,-10);const roof=new THREE.Mesh(new THREE.ConeGeometry(7,8,4),roofMat);roof.position.set(0,20,-10);roof.rotation.y=Math.PI/4;scene.add(roof);tower(-14,-7,12);tower(14,-7,12);tower(-9,-13,10);tower(9,-13,10);
+for(let i=0;i<12;i++){tree(-10-(i%3)*2,8+Math.floor(i/3)*8,.85);tree(10+(i%3)*2,8+Math.floor(i/3)*8,.85)}
+for(let i=0;i<28;i++)flower((Math.random()-.5)*19,Math.random()*35+2,i%2?0xffb9c9:0xffe3d1);
+// Palace facade and towers
+box(8.5,12,9,stone,-7.75,6,-4);box(8.5,12,9,stone,7.75,6,-4);box(7,5,9,stone,0,9.5,-4);box(27,1,10,darkStone,0,12,-4);box(10,16,8,stone,0,8,-10);
+const roof=new THREE.Mesh(new THREE.ConeGeometry(7,8,4),roofMat);roof.position.set(0,20,-10);roof.rotation.y=Math.PI/4;scene.add(roof);
+tower(-14,-7,12);tower(14,-7,12);tower(-9,-13,10);tower(9,-13,10);
 for(let x=-9;x<=9;x+=3){box(1.2,2,.15,windowMat,x,6.5,.57);box(1.2,2,.15,windowMat,x,6.5,-8.57);box(1.2,2,.15,windowMat,x,11,-8.57)}
 box(7,7,.7,darkStone,0,3.5,.65);
-// Correctly hinged double doors
 const leftDoor=new THREE.Group(),rightDoor=new THREE.Group();leftDoor.position.set(-2,0,1);rightDoor.position.set(2,0,1);scene.add(leftDoor,rightDoor);box(2,5,.35,doorMat,1,2.5,0,leftDoor);box(2,5,.35,doorMat,-1,2.5,0,rightDoor);box(.1,4,.12,gold,1.7,2.5,.22,leftDoor);box(.1,4,.12,gold,-1.7,2.5,.22,rightDoor);sphere(.13,gold,.35,2.5,.25,leftDoor);sphere(.13,gold,-.35,2.5,.25,rightDoor);
-// Fountain and golden motes outside
-cylinder(2,2.3,.5,darkStone,0,.3,9);const water=cylinder(1.8,1.8,.08,mat(0x82b9ca,.4,.2),0,.6,9);cylinder(.4,.65,1.2,darkStone,0,1,9);
-const particleGeo=new THREE.BufferGeometry(),positions=[];for(let i=0;i<100;i++)positions.push((Math.random()-.5)*45,Math.random()*20,Math.random()*45-10);particleGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));const particles=new THREE.Points(particleGeo,new THREE.PointsMaterial({color:0xffd68b,size:.13,transparent:true,opacity:.8}));scene.add(particles);
-// GRAND INTERIOR HALL: built as a real 3D room behind the entrance
+cylinder(2,2.3,.5,darkStone,0,.3,9);cylinder(1.8,1.8,.08,mat(0x82b9ca,.4,.2),0,.6,9);cylinder(.4,.65,1.2,darkStone,0,1,9);
+// Fewer, smaller golden motes.
+const particleGeo=new THREE.BufferGeometry(),positions=[];for(let i=0;i<75;i++)positions.push((Math.random()-.5)*45,Math.random()*20,Math.random()*45-10);particleGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));const particles=new THREE.Points(particleGeo,new THREE.PointsMaterial({color:0xffd68b,size:.11,transparent:true,opacity:.65}));scene.add(particles);
+// Grand 3D interior hall
 const hall=new THREE.Group();scene.add(hall);
 box(18,.7,43,marble,0,-.05,-20,hall);box(18,.7,43,wall,0,10.8,-20,hall);box(.7,11,43,wall,-9,5.4,-20,hall);box(.7,11,43,wall,9,5.4,-20,hall);box(18,.7,43,wall,0,11,-20,hall);
-// polished floor inlays and central red carpet
-for(let z=-1;z>=-40;z-=4){box(17,.025,.045,gold,0,.34,z,hall)}box(5,.08,41,red,0,.37,-20,hall);for(let z=-1;z>-41;z-=3){box(4.5,.025,.045,gold,0,.43,z,hall)}
-// columns, gold capitals and bases
-for(let z=-2;z>=-39;z-=7){for(const x of [-7.7,7.7]){cylinder(.42,.55,9,stone,x,5,z,hall);cylinder(.68,.68,.35,gold,x,.5,z,hall);cylinder(.68,.68,.35,gold,x,9.5,z,hall);cylinder(.55,.55,.25,gold,x,9.9,z,hall)}}
-// chandeliers hanging down the hall
-for(let z=-5;z>=-34;z-=9){cylinder(.08,.08,1.3,gold,0,9.8,z,hall);const ring=new THREE.Mesh(new THREE.TorusGeometry(1.15,.09,8,24),gold);ring.rotation.x=Math.PI/2;ring.position.set(0,8.9,z);hall.add(ring);for(let i=0;i<8;i++){const a=i*Math.PI/4;sphere(.12,windowMat,Math.cos(a)*1.05,8.75,z+Math.sin(a)*1.05,hall)}const lamp=new THREE.PointLight(0xffc875,16,13);lamp.position.set(0,8.5,z);hall.add(lamp)}
-// throne at the end wall
+for(let z=-1;z>=-40;z-=4)box(17,.025,.045,gold,0,.34,z,hall);box(5,.08,41,red,0,.37,-20,hall);for(let z=-1;z>-41;z-=3)box(4.5,.025,.045,gold,0,.43,z,hall);
+for(let z=-2;z>=-39;z-=7)for(const x of [-7.7,7.7]){cylinder(.42,.55,9,stone,x,5,z,hall);cylinder(.68,.68,.35,gold,x,.5,z,hall);cylinder(.68,.68,.35,gold,x,9.5,z,hall);cylinder(.55,.55,.25,gold,x,9.9,z,hall)}
+for(let z=-5;z>=-34;z-=9){cylinder(.08,.08,1.3,gold,0,9.8,z,hall);const ring=new THREE.Mesh(new THREE.TorusGeometry(1.15,.09,6,18),gold);ring.rotation.x=Math.PI/2;ring.position.set(0,8.9,z);hall.add(ring);for(let i=0;i<6;i++){const a=i*Math.PI/3;sphere(.12,windowMat,Math.cos(a)*1.05,8.75,z+Math.sin(a)*1.05,hall)}}
 box(7,9,.6,wall,0,5.2,-41.6,hall);box(3.5,3,.9,gold,0,1.8,-39,hall);box(3.1,4,.5,red,0,4.7,-39.1,hall);box(4.1,.5,.8,gold,0,7,-39.2,hall);for(const x of [-1.7,1.7]){box(.45,5,.6,gold,x,4.5,-39.1,hall);sphere(.32,gold,x,7.2,-39.1,hall)}
-// ROYAL GALLERY: one grand room with all 14 portraits visible together
-// The first memory is placed at the top-left, closest to the entrance's viewing direction.
+// Royal Gallery: same long, decorated 3D corridor.
 const gallery=new THREE.Group();scene.add(gallery);
-box(30,.7,42,marble,0,-.12,-62,gallery);                 // polished marble floor
-box(30,.7,42,wall,0,12,-62,gallery);                    // ceiling
-box(.7,12,42,wall,-15,6,-62,gallery);                   // left wall
-box(.7,12,42,wall,15,6,-62,gallery);                    // right wall
-box(30,12,.7,wall,0,6,-82.5,gallery);                   // portrait feature wall
-box(30,12,.7,wall,0,6,-41.5,gallery);                   // entrance wall
-box(3,.08,40,red,0,.25,-62,gallery);                    // central carpet
-// Gold floor borders and side-wall sconces
-for(const x of [-14.2,14.2])box(.08,.04,40,gold,x,.28,-62,gallery);
-for(let z=-49;z>=-76;z-=9){
-  for(const x of [-14.45,14.45]){
-    box(.18,1.5,.22,gold,x,6.7,z,gallery);
-    sphere(.22,windowMat,x+(x<0?.16:-.16),6.8,z,gallery);
-  }
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(.7,.07,8,20),gold);
-  ring.position.set(0,10.7,z);gallery.add(ring);
-}
-// A decorative gold crest above the portrait collection
-const crest=new THREE.Mesh(new THREE.TorusGeometry(1.15,.12,10,32),gold);
-crest.position.set(0,10.1,-81.95);gallery.add(crest);
-sphere(.35,windowMat,0,10.1,-81.8,gallery);
-
-// 14 thumbnail portraits arranged in reading order: left-to-right, top row then bottom row.
-// All portraits face the entrance so the complete collection is visible immediately.
-const loader=new THREE.TextureLoader();const portraits=[];const clickable=[];const raycaster=new THREE.Raycaster();const pointer=new THREE.Vector2();
-function loadPortrait(p){
-  if(p.loaded)return;p.loaded=true;
-  loader.load('gallery/'+p.memory.file,tex=>{
-    const img=tex.image,max=520;
-    if(img.width>max||img.height>max){
-      const scale=Math.min(max/img.width,max/img.height),canvas=document.createElement('canvas');
-      canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);
-      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);tex.image=canvas;
-    }
-    tex.colorSpace=THREE.SRGBColorSpace;tex.generateMipmaps=true;
-    tex.minFilter=THREE.LinearMipmapLinearFilter;tex.magFilter=THREE.LinearFilter;tex.anisotropy=1;
-    p.photo.material.map=tex;p.photo.material.needsUpdate=true;
-  },undefined,()=>{p.photo.material.color.set(0x77566a)});
-}
-function plaqueTexture(index,m){
-  const c=document.createElement('canvas');c.width=700;c.height=150;const ctx=c.getContext('2d');
-  ctx.fillStyle='#321b2a';ctx.fillRect(0,0,700,150);ctx.strokeStyle='#d8ad5d';ctx.lineWidth=6;ctx.strokeRect(7,7,686,136);
-  ctx.textAlign='center';ctx.fillStyle='#e8c77e';ctx.font='22px Georgia';
-  ctx.fillText('MEMORY '+String(index+1).padStart(2,'0')+(m.time?'  ·  '+m.time:''),350,39);
-  ctx.fillStyle='#fff0d2';ctx.font='22px Georgia';let words=m.caption.split(' '),lines=[''],line=0;
-  for(const word of words){const test=lines[line]?lines[line]+' '+word:word;if(ctx.measureText(test).width>620){lines[++line]=word}else lines[line]=test}
-  lines.slice(0,2).forEach((t,i)=>ctx.fillText(t,350,82+i*29));
-  return new THREE.CanvasTexture(c);
-}
+box(15,.65,65,marble,0,-.12,-77,gallery);box(15,.6,65,wall,0,9.2,-77,gallery);box(.6,9,65,wall,-7.5,4.5,-77,gallery);box(.6,9,65,wall,7.5,4.5,-77,gallery);box(15,.6,65,wall,0,9.2,-77,gallery);box(2,.08,64,red,0,.24,-77,gallery);
+// Pillars are moved behind the frames and away from their visible photo areas.
+for(let z=-52;z>=-100;z-=8)for(const x of [-7.28,7.28]){cylinder(.22,.27,8,stone,x,4,z,gallery);cylinder(.38,.38,.22,gold,x,.5,z,gallery);cylinder(.38,.38,.22,gold,x,8,z,gallery)}
+// A small number of gallery lights; warm ambience is also provided by emissive details.
+for(let z=-54;z>=-102;z-=16){const lamp=new THREE.PointLight(0xffc875,7,11);lamp.position.set(0,7.7,z);gallery.add(lamp);const ch=new THREE.Mesh(new THREE.TorusGeometry(.58,.06,6,16),gold);ch.rotation.x=Math.PI/2;ch.position.set(0,8,z);gallery.add(ch)}
+const loader=new THREE.TextureLoader(),portraits=[],clickable=[],raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
+function plaqueTexture(index,m){const c=document.createElement('canvas');c.width=700;c.height=150;const ctx=c.getContext('2d');ctx.fillStyle='#321b2a';ctx.fillRect(0,0,700,150);ctx.strokeStyle='#d8ad5d';ctx.lineWidth=6;ctx.strokeRect(7,7,686,136);ctx.textAlign='center';ctx.fillStyle='#e8c77e';ctx.font='22px Georgia';ctx.fillText('MEMORY '+String(index+1).padStart(2,'0')+(m.time?'  ·  '+m.time:''),350,42);ctx.fillStyle='#fff0d2';ctx.font='23px Georgia';let words=m.caption.split(' '),lines=[''],line=0;for(const word of words){const test=lines[line]?lines[line]+' '+word:word;if(ctx.measureText(test).width>620){lines[++line]=word}else lines[line]=test}lines.slice(0,2).forEach((t,i)=>ctx.fillText(t,350,83+i*30));return new THREE.CanvasTexture(c)}
 memories.forEach((m,i)=>{
-  const col=i%7,row=Math.floor(i/7),x=-11.4+col*3.8,y=row===0?8.0:4.0;
-  const frame=new THREE.Group();frame.position.set(x,y,-81.95);gallery.add(frame);
-  // Deep gold outer moulding and dark inner mount
-  box(3.35,3.55,.24,gold,0,0,0,frame);
-  box(3.12,3.32,.13,dark,0,0,.15,frame);
-  const photoMat=new THREE.MeshStandardMaterial({color:0x8b7480,roughness:.85});
-  const photo=new THREE.Mesh(new THREE.PlaneGeometry(2.82,2.55),photoMat);
-  photo.position.z=.235;frame.add(photo);photo.userData.memoryIndex=i;clickable.push(photo);
-  const plaque=new THREE.Mesh(new THREE.PlaneGeometry(3.2,.62),new THREE.MeshBasicMaterial({map:plaqueTexture(i,m)}));
-  plaque.position.set(0,-2.03,.24);frame.add(plaque);
-  portraits.push({frame,photo,index:i,memory:m,loaded:false});
+  // Memory 01 is immediately on the RIGHT just inside the gallery entrance.
+  const side=i===0?1:(i%2===0?-1:1),row=Math.floor(i/2),z=-48-row*8;
+  const frame=new THREE.Group();frame.position.set(side*7.08,4.65,z);frame.rotation.y=side===-1?Math.PI/2:-Math.PI/2;gallery.add(frame);
+  box(3.05,3.65,.22,gold,0,0,0,frame);box(2.83,3.43,.12,dark,0,0,.13,frame);
+  const photoMat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.8});const photo=new THREE.Mesh(new THREE.PlaneGeometry(2.55,2.65),photoMat);photo.position.z=.205;frame.add(photo);photo.userData.memoryIndex=i;clickable.push(photo);
+  loader.load('gallery/'+m.file,tex=>{tex.colorSpace=THREE.SRGBColorSpace;photo.material.map=tex;photo.material.needsUpdate=true},undefined,()=>{photo.material.color.set(0x77566a)});
+  const plaque=new THREE.Mesh(new THREE.PlaneGeometry(3.05,.72),new THREE.MeshBasicMaterial({map:plaqueTexture(i,m)}));plaque.position.set(0,-2.18,.22);frame.add(plaque);
+  portraits.push({frame,photo,index:i,position:new THREE.Vector3(0,3.3,z+(side===-1?2.2:-2.2))});
 });
-// State and camera choreography
-let mode='outside',moving=false,doorAnimating=false,doorT=0,targetPos=null,targetLook=null,afterMove=null,selectedMemory=0;const clock=new THREE.Clock();
-function moveCamera(pos,look,duration,done){moving=true;const startP=camera.position.clone(),startQ=new THREE.Vector3(0,4,0);camera.getWorldDirection(startQ);const endP=pos.clone(),endLook=look.clone();let elapsed=0;function step(dt){elapsed+=dt;const t=Math.min(1,elapsed/duration),e=t*t*(3-2*t);camera.position.lerpVectors(startP,endP,e);const l=startQ.clone().lerp(endLook.clone().sub(endP).normalize(),e);camera.lookAt(camera.position.clone().add(l));if(t>=1){moving=false;if(done)done() }return t<1}activeMove=step}let activeMove=null;
+for(const x of [-7.1,7.1])box(.35,8,.35,gold,x,4.2,-108,gallery);
+// Camera choreography
+let mode='outside',moving=false,doorAnimating=false,doorT=0,activeMove=null;const clock=new THREE.Clock();
 function setStatus(s,h){$('status').textContent=s;$('hint').textContent=h}
+function moveCamera(pos,look,duration,done){moving=true;const startP=camera.position.clone(),startDir=new THREE.Vector3();camera.getWorldDirection(startDir);const endP=pos.clone(),endDir=look.clone().sub(endP).normalize();let elapsed=0;activeMove=dt=>{elapsed+=dt;const t=Math.min(1,elapsed/duration),e=t*t*(3-2*t);camera.position.lerpVectors(startP,endP,e);const dir=startDir.clone().lerp(endDir,e).normalize();camera.lookAt(camera.position.clone().add(dir));if(t>=1){moving=false;activeMove=null;if(done)done()}return t<1}}
 window.addEventListener('palace-approach',()=>{if(mode!=='outside')return;mode='approaching';$('invitation').classList.add('hidden');setStatus('APPROACHING THE PALACE','THE KINGDOM AWAITS');moveCamera(new THREE.Vector3(0,7,13),new THREE.Vector3(0,4,-2),4,()=>{$('doorPrompt').classList.remove('hidden');setStatus('THE GRAND ENTRANCE','TAP TO OPEN THE DOORS')})});
 window.addEventListener('palace-open',()=>{if(mode!=='approaching')return;mode='entering';$('doorPrompt').classList.add('hidden');doorAnimating=true;doorT=0;setStatus('THE PALACE WELCOMES YOU','ENTERING THE ROYAL HALL')});
 function arriveHall(){mode='hall';$('welcome').classList.remove('hidden');setStatus('02 / 05 · THE ROYAL HALL','WELCOME HOME, PRINCESS MANJIRA')}
-window.addEventListener('palace-gallery',()=>{if(mode!=='hall')return;portraits.forEach(loadPortrait);$('welcome').classList.add('hidden');$('galleryControls').classList.remove('hidden');mode='gallery';selectedMemory=0;setStatus('03 / 05 · THE ROYAL GALLERY','ALL FOURTEEN MEMORIES · TAP ANY PORTRAIT');moveCamera(new THREE.Vector3(0,5.4,-44),new THREE.Vector3(0,5.6,-81),3.8,()=>{setStatus('03 / 05 · THE ROYAL GALLERY','TAP ANY GOLDEN FRAME TO OPEN ITS MEMORY')})});
-window.addEventListener('palace-return',()=>{if(mode!=='gallery')return;$('galleryControls').classList.add('hidden');$('welcome').classList.remove('hidden');mode='hall';moveCamera(new THREE.Vector3(0,4.2,-14),new THREE.Vector3(0,4,-30),3,()=>setStatus('02 / 05 · THE ROYAL HALL','WELCOME HOME, PRINCESS MANJIRA'))});
-window.nextMemory=()=>{showPhoto(viewerIndex+1)};window.previousMemory=()=>{showPhoto(viewerIndex-1)};
-// Tap a portrait in the 3D room to inspect its matching photo and caption.
+window.addEventListener('palace-gallery',()=>{if(mode!=='hall')return;$('welcome').classList.add('hidden');$('galleryControls').classList.remove('hidden');mode='gallery';moveCamera(new THREE.Vector3(0,4.2,-44),new THREE.Vector3(0,3.8,-58),3.5,()=>setStatus('03 / 05 · THE ROYAL GALLERY','YOUR FIRST MEMORY IS JUST TO THE RIGHT'))});
+window.addEventListener('palace-return',()=>{if(mode!=='gallery')return;$('galleryControls').classList.add('hidden');$('welcome').classList.remove('hidden');mode='hall';moveCamera(new THREE.Vector3(0,4.2,-14),new THREE.Vector3(0,4,-30),2.8,()=>setStatus('02 / 05 · THE ROYAL HALL','WELCOME HOME, PRINCESS MANJIRA'))});
+function goMemory(i){selectedMemory=(i+14)%14;const p=portraits[selectedMemory].position.clone();moveCamera(new THREE.Vector3(p.x*.42,3.7,p.z),new THREE.Vector3(p.x,4.1,p.z-(p.x<0?1:-1)),1.8,()=>showPhoto(selectedMemory))}
+let selectedMemory=0;window.nextMemory=()=>goMemory(selectedMemory+1);window.previousMemory=()=>goMemory(selectedMemory-1);
 renderer.domElement.addEventListener('pointerdown',e=>{if(mode!=='gallery'||moving)return;pointer.x=(e.clientX/innerWidth)*2-1;pointer.y=-(e.clientY/innerHeight)*2+1;raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(clickable,false);if(hits.length){const idx=hits[0].object.userData.memoryIndex;selectedMemory=idx;showPhoto(idx)}});
-let lastRender=0;function animate(now=0){requestAnimationFrame(animate);if(document.hidden)return;const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;particles.rotation.y=t*.012;water.scale.y=1+Math.sin(t*2)*.025;warm.intensity=45+Math.sin(t*1.5)*5;if(activeMove){if(!activeMove(dt))activeMove=null}if(doorAnimating){doorT=Math.min(1,doorT+dt*.65);const e=doorT*doorT*(3-2*doorT);leftDoor.rotation.y=-1.35*e;rightDoor.rotation.y=1.35*e;if(doorT>=1){doorAnimating=false;moveCamera(new THREE.Vector3(0,4.4,-14),new THREE.Vector3(0,4,-30),5,arriveHall)}}if(now-lastRender>=33){renderer.render(scene,camera);lastRender=now}}animate();
-window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<760?1:1.2))});
+// Cap animation work to a mobile-friendly frame rate and avoid unnecessary scene updates.
+let lastFrame=0;
+function animate(now){requestAnimationFrame(animate);if(now-lastFrame<30)return;lastFrame=now;const dt=Math.min(clock.getDelta(),.05),t=clock.elapsedTime;particles.rotation.y=t*.008;if(activeMove)activeMove(dt);if(doorAnimating){doorT=Math.min(1,doorT+dt*.65);const e=doorT*doorT*(3-2*doorT);leftDoor.rotation.y=-1.35*e;rightDoor.rotation.y=1.35*e;if(doorT>=1){doorAnimating=false;moveCamera(new THREE.Vector3(0,4.4,-14),new THREE.Vector3(0,4,-30),4.5,arriveHall)}}renderer.render(scene,camera)}
+requestAnimationFrame(animate);
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.15))});
 </script>
-</body></html>
+</body>
+</html>
