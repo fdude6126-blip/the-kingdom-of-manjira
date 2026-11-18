@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Kingdom of Manjira</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#160d19;color:#f9e9c9;font-family:Georgia,serif}
+.scene{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 85%,#74402e,#321b30 48%,#100d20)}
+.scene:before{content:"";position:absolute;inset:12px;border:1px solid #c6a15b;pointer-events:none}
+.content{position:relative;z-index:1;max-width:520px;width:100%}
+.small{letter-spacing:5px;color:#d6b66f;font-size:12px}
+h1{font-size:clamp(35px,10vw,58px);font-weight:normal;line-height:1.15;margin:25px 0;color:#f4dba5}
+h2{font-size:30px;font-weight:normal;color:#f4dba5}
+p{line-height:1.8;color:#ead9c6}
+.palace{font-size:90px;margin:25px 0;filter:drop-shadow(0 0 20px #e7b86b)}
+button{background:linear-gradient(135deg,#e4c27b,#a87836);border:1px solid #f7dfa1;color:#241425;padding:15px 24px;margin:9px;font-family:Georgia,serif;font-size:12px;letter-spacing:2px;cursor:pointer}
+button:active{transform:scale(.97)}
+.secondary{background:transparent;color:#f4dba5;border-color:#b89558}
+.hidden{display:none!important}
+.door{font-size:100px;margin:20px}
+.choices{display:grid;gap:12px;margin-top:25px}
+.choice{border:1px solid #9c7947;padding:17px;background:#ffffff0b}
+.choice strong{display:block;color:#f3d28d;margin-bottom:7px}
+footer{position:absolute;bottom:27px;font-size:10px;letter-spacing:3px;color:#c5a875}
+</style>
+</head>
+<body>
+
+<section class="scene" id="arrival">
+<div class="content">
+<div class="small">01 / 05 · THE ARRIVAL</div>
+<div class="palace">🏰</div>
+<div class="small">THE KINGDOM OF MANJIRA</div>
+<h1>AN INVITATION</h1>
+<p>Her Royal Highness<br><strong>Princess Manjira</strong></p>
+<p>A special evening awaits.</p>
+<button onclick="show('entrance')">APPROACH THE PALACE</button>
+<button class="secondary" onclick="show('entrance')">SKIP INTRO</button>
+</div>
+<footer>A KINGDOM BUILT WITH LOVE</footer>
+</section>
+
+<section class="scene hidden" id="entrance">
+<div class="content">
+<div class="small">02 / 05 · THE GRAND ENTRANCE</div>
+<div class="door" id="doors">🚪</div>
+<h1>THE GRAND ENTRANCE</h1>
+<p>The doors are waiting for you.</p>
+<button onclick="openDoors()">OPEN THE DOORS</button>
+<div id="welcome" class="hidden">
+<h2>Welcome, Your Highness.</h2>
+<p>Your palace awaits.</p>
+<div class="choices">
+<div class="choice" onclick="alert('The Royal Gallery is coming next!')">
+<strong>THE ROYAL GALLERY</strong>Portraits of us
+</div>
+<div class="choice" onclick="alert('The Grand Ballroom is coming next!')">
+<strong>THE GRAND BALLROOM</strong>A kingdom for one
+</div>
+<div class="choice" onclick="alert('The Rose Garden is coming next!')">
+<strong>THE ROSE GARDEN</strong>Something sealed for you
+</div>
+</div>
+</div>
+</div>
+<footer>THE KINGDOM OF MANJIRA</footer>
+</section>
+
+<script>
+function show(id){
+document.querySelectorAll('.scene').forEach(s=>s.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+window.scrollTo(0,0);
+}
+function openDoors(){
+document.getElementById('doors').textContent='✨🚪✨';
+document.getElementById('welcome').classList.remove('hidden');
+}
+</script>
+</body>
+</html>
