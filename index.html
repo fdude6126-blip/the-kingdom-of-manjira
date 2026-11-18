@@ -1,84 +1,255 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Kingdom of Manjira</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#160d19;color:#f9e9c9;font-family:Georgia,serif}
-.scene{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 85%,#74402e,#321b30 48%,#100d20)}
-.scene:before{content:"";position:absolute;inset:12px;border:1px solid #c6a15b;pointer-events:none}
-.content{position:relative;z-index:1;max-width:520px;width:100%}
-.small{letter-spacing:5px;color:#d6b66f;font-size:12px}
-h1{font-size:clamp(35px,10vw,58px);font-weight:normal;line-height:1.15;margin:25px 0;color:#f4dba5}
-h2{font-size:30px;font-weight:normal;color:#f4dba5}
-p{line-height:1.8;color:#ead9c6}
-.palace{font-size:90px;margin:25px 0;filter:drop-shadow(0 0 20px #e7b86b)}
-button{background:linear-gradient(135deg,#e4c27b,#a87836);border:1px solid #f7dfa1;color:#241425;padding:15px 24px;margin:9px;font-family:Georgia,serif;font-size:12px;letter-spacing:2px;cursor:pointer}
-button:active{transform:scale(.97)}
-.secondary{background:transparent;color:#f4dba5;border-color:#b89558}
+body{margin:0;background:#100d20;color:#f8e5bc;font-family:Georgia,serif;overflow:hidden}
+#world{position:fixed;inset:0}
+canvas{display:block}
+.overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:linear-gradient(180deg,rgba(12,8,24,.12),rgba(12,8,24,.48));pointer-events:none}
+.content{max-width:480px;width:100%;pointer-events:auto}
+.eyebrow{font-size:11px;letter-spacing:5px;color:#e7c47e}
+h1{font-size:clamp(36px,10vw,60px);font-weight:normal;line-height:1.12;margin:24px 0;color:#ffe5aa;text-shadow:0 3px 25px #000}
+p{line-height:1.8;color:#f5e2ce}
+button{border:1px solid #f5d795;background:linear-gradient(130deg,#e9cb8a,#a97836);color:#25152a;padding:15px 23px;margin:8px;font-family:Georgia,serif;letter-spacing:2px;font-size:11px;cursor:pointer}
+button:active{transform:scale(.96)}
+.secondary{background:rgba(20,12,28,.5);color:#f8e5bc}
 .hidden{display:none!important}
-.door{font-size:100px;margin:20px}
-.choices{display:grid;gap:12px;margin-top:25px}
-.choice{border:1px solid #9c7947;padding:17px;background:#ffffff0b}
-.choice strong{display:block;color:#f3d28d;margin-bottom:7px}
-footer{position:absolute;bottom:27px;font-size:10px;letter-spacing:3px;color:#c5a875}
+#status{position:fixed;top:22px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:4px;color:#f4d18c;pointer-events:none}
+#hint{position:fixed;bottom:20px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:2px;color:#f4d8a8;pointer-events:none}
 </style>
 </head>
 <body>
+<div id="world"></div>
+<div id="status">01 / 05 · THE ARRIVAL</div>
 
-<section class="scene" id="arrival">
+<div class="overlay" id="invitation">
 <div class="content">
-<div class="small">01 / 05 · THE ARRIVAL</div>
-<div class="palace">🏰</div>
-<div class="small">THE KINGDOM OF MANJIRA</div>
+<div class="eyebrow">THE KINGDOM OF MANJIRA</div>
 <h1>AN INVITATION</h1>
 <p>Her Royal Highness<br><strong>Princess Manjira</strong></p>
 <p>A special evening awaits.</p>
-<button onclick="show('entrance')">APPROACH THE PALACE</button>
-<button class="secondary" onclick="show('entrance')">SKIP INTRO</button>
+<button onclick="approach()">APPROACH THE PALACE</button>
+<button class="secondary" onclick="approach()">SKIP INTRO</button>
 </div>
-<footer>A KINGDOM BUILT WITH LOVE</footer>
-</section>
+</div>
 
-<section class="scene hidden" id="entrance">
+<div class="overlay hidden" id="entrance">
 <div class="content">
-<div class="small">02 / 05 · THE GRAND ENTRANCE</div>
-<div class="door" id="doors">🚪</div>
+<div class="eyebrow">02 / 05 · THE GRAND ENTRANCE</div>
 <h1>THE GRAND ENTRANCE</h1>
 <p>The doors are waiting for you.</p>
 <button onclick="openDoors()">OPEN THE DOORS</button>
 <div id="welcome" class="hidden">
 <h2>Welcome, Your Highness.</h2>
 <p>Your palace awaits.</p>
-<div class="choices">
-<div class="choice" onclick="alert('The Royal Gallery is coming next!')">
-<strong>THE ROYAL GALLERY</strong>Portraits of us
-</div>
-<div class="choice" onclick="alert('The Grand Ballroom is coming next!')">
-<strong>THE GRAND BALLROOM</strong>A kingdom for one
-</div>
-<div class="choice" onclick="alert('The Rose Garden is coming next!')">
-<strong>THE ROSE GARDEN</strong>Something sealed for you
+<button onclick="alert('The Royal Gallery is our next upgrade!')">THE ROYAL GALLERY</button>
+<button onclick="alert('The Grand Ballroom is coming next!')">THE GRAND BALLROOM</button>
+<button onclick="alert('The Rose Garden is coming next!')">THE ROSE GARDEN</button>
 </div>
 </div>
 </div>
-</div>
-<footer>THE KINGDOM OF MANJIRA</footer>
-</section>
 
-<script>
-function show(id){
-document.querySelectorAll('.scene').forEach(s=>s.classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-window.scrollTo(0,0);
+<div id="hint">A KINGDOM BUILT WITH LOVE</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+const host=document.getElementById('world');
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x4d304a);
+scene.fog=new THREE.FogExp2(0x493044,0.009);
+
+const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,500);
+camera.position.set(0,9,34);
+camera.lookAt(0,5,0);
+
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.25;
+host.appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xffd9b0,0x33213c,2));
+
+const sun=new THREE.DirectionalLight(0xffd29a,3);
+sun.position.set(-15,25,15);
+sun.castShadow=true;
+sun.shadow.mapSize.set(1024,1024);
+scene.add(sun);
+
+const fill=new THREE.PointLight(0xffa65d,45,80);
+fill.position.set(0,10,8);
+scene.add(fill);
+
+const stone=new THREE.MeshStandardMaterial({color:0xe2c9a5,roughness:.85});
+const darkStone=new THREE.MeshStandardMaterial({color:0x80604e});
+const gold=new THREE.MeshStandardMaterial({color:0xd4a64c,metalness:.65,roughness:.3});
+const roofMat=new THREE.MeshStandardMaterial({color:0x48263e,roughness:.65});
+const grass=new THREE.MeshStandardMaterial({color:0x34442d});
+const pathMat=new THREE.MeshStandardMaterial({color:0xb69a80});
+const doorMat=new THREE.MeshStandardMaterial({color:0x482633,roughness:.4});
+const windowMat=new THREE.MeshStandardMaterial({color:0xffc66e,emissive:0xff9c35,emissiveIntensity:2});
+
+function box(w,h,d,mat,x,y,z,parent=scene){
+ const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+ m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;
+ parent.add(m);return m;
 }
-function openDoors(){
-document.getElementById('doors').textContent='✨🚪✨';
-document.getElementById('welcome').classList.remove('hidden');
+function tower(x,z,height=13){
+ const base=box(5,height,5,stone,x,height/2,z);
+ const roof=new THREE.Mesh(new THREE.ConeGeometry(3.9,6,4),roofMat);
+ roof.position.set(x,height+3,z);roof.rotation.y=Math.PI/4;
+ roof.castShadow=true;scene.add(roof);
+ const tip=new THREE.Mesh(new THREE.SphereGeometry(.3,12,12),gold);
+ tip.position.set(x,height+6.2,z);scene.add(tip);
+ for(let y=2.5;y<height-1;y+=3){
+  box(1.05,1.45,.12,windowMat,x,y,z+2.56);
+ }
 }
+function tree(x,z,s=1){
+ const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.15*s,.25*s,2*s,8),darkStone);
+ trunk.position.set(x,s,z);scene.add(trunk);
+ const leaves=new THREE.Mesh(new THREE.SphereGeometry(1.25*s,10,8),grass);
+ leaves.position.set(x,2.5*s,z);leaves.castShadow=true;scene.add(leaves);
+}
+function flower(x,z,color){
+ const stem=new THREE.Mesh(new THREE.CylinderGeometry(.025,.04,.65,6),grass);
+ stem.position.set(x,.35,z);scene.add(stem);
+ const petal=new THREE.MeshStandardMaterial({color,roughness:.5});
+ for(let i=0;i<5;i++){
+  const a=i*Math.PI*2/5;
+  const p=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),petal);
+  p.scale.set(1,.5,1);p.position.set(x+Math.cos(a)*.17,.7,z+Math.sin(a)*.17);
+  scene.add(p);
+ }
+}
+const ground=box(200,.5,200,grass,0,-.3,0);
+box(5,.12,42,pathMat,0,.02,15);
+
+for(let i=0;i<25;i++){
+ tree(-10-(i%5)*2,8+Math.floor(i/5)*6,.8+Math.random()*.5);
+ tree(10+(i%5)*2,8+Math.floor(i/5)*6,.8+Math.random()*.5);
+}
+for(let i=0;i<75;i++){
+ const x=(Math.random()-.5)*19;
+ const z=Math.random()*35+2;
+ flower(x,z,Math.random()>.5?0xffb9c9:0xffe3d1);
+}
+
+// Palace main building
+box(24,12,9,stone,0,6,-4);
+box(27,1,10,darkStone,0,12,-4);
+box(10,16,8,stone,0,8,-10);
+const centralRoof=new THREE.Mesh(new THREE.ConeGeometry(7,8,4),roofMat);
+centralRoof.position.set(0,20,-10);
+centralRoof.rotation.y=Math.PI/4;
+scene.add(centralRoof);
+
+// Side towers
+tower(-14,-7,12);
+tower(14,-7,12);
+tower(-9,-13,10);
+tower(9,-13,10);
+
+// Golden windows
+for(let x=-9;x<=9;x+=3){
+ box(1.2,2,.15,windowMat,x,6.5,.57);
+ box(1.2,2,.15,windowMat,x,6.5,-8.57);
+}
+for(let x=-9;x<=9;x+=3){
+ box(1.2,2,.15,windowMat,x,11,-8.57);
+}
+
+// Main entrance
+box(7,7,.7,darkStone,0,3.5,.65);
+const leftDoor=new THREE.Group();
+const rightDoor=new THREE.Group();
+leftDoor.position.set(0,0,1);
+rightDoor.position.set(0,0,1);
+scene.add(leftDoor,rightDoor);
+box(2,5,.35,doorMat,-2,2.5,0,leftDoor);
+box(2,5,.35,doorMat,2,2.5,0,rightDoor);
+box(.12,4,.1,gold,-.8,2.5,.2,leftDoor);
+box(.12,4,.1,gold,.8,2.5,.2,rightDoor);
+const handle=new THREE.Mesh(new THREE.SphereGeometry(.13),gold);
+handle.position.set(-.4,2.5,.25);leftDoor.add(handle);
+const handle2=handle.clone();handle2.position.set(.4,2.5,.25);rightDoor.add(handle2);
+
+// Fountain
+const waterMat=new THREE.MeshStandardMaterial({color:0x82b9ca,metalness:.4,roughness:.2});
+const fountain=new THREE.Mesh(new THREE.CylinderGeometry(2,2.3,.5,32),darkStone);
+fountain.position.set(0,.3,9);scene.add(fountain);
+const water=new THREE.Mesh(new THREE.CylinderGeometry(1.8,1.8,.08,32),waterMat);
+water.position.set(0,.6,9);scene.add(water);
+const waterTop=new THREE.Mesh(new THREE.CylinderGeometry(.4,.65,1.2,20),darkStone);
+waterTop.position.set(0,1,9);scene.add(waterTop);
+
+// Magical particles
+const particleGeo=new THREE.BufferGeometry();
+const positions=[];
+for(let i=0;i<300;i++){
+ positions.push((Math.random()-.5)*45,Math.random()*20,Math.random()*45-10);
+}
+particleGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
+const particleMat=new THREE.PointsMaterial({color:0xffd68b,size:.13,transparent:true,opacity:.85});
+const particles=new THREE.Points(particleGeo,particleMat);
+scene.add(particles);
+
+let moving=false,doorsOpen=false,started=false;
+let clock=new THREE.Clock();
+
+window.approach=function(){
+ if(started)return;
+ started=true;moving=true;
+ document.getElementById('invitation').classList.add('hidden');
+ document.getElementById('status').textContent='APPROACHING THE PALACE';
+ document.getElementById('hint').textContent='THE KINGDOM AWAITS';
+};
+
+window.openDoors=function(){
+ if(doorsOpen)return;
+ doorsOpen=true;
+ document.getElementById('welcome').classList.remove('hidden');
+ document.getElementById('status').textContent='02 / 05 · THE GRAND ENTRANCE';
+};
+
+function animate(){
+ requestAnimationFrame(animate);
+ const t=clock.getElapsedTime();
+ particles.rotation.y=t*.012;
+ water.scale.y=1+Math.sin(t*2)*.025;
+ fill.intensity=40+Math.sin(t*1.5)*8;
+
+ if(moving){
+  camera.position.z-=.055;
+  camera.position.y+=.012;
+  camera.lookAt(0,5,0);
+  if(camera.position.z<17){
+   moving=false;
+   document.getElementById('entrance').classList.remove('hidden');
+   document.getElementById('hint').textContent='TAP OPEN THE DOORS';
+  }
+ }
+ if(doorsOpen){
+  leftDoor.rotation.y=-Math.min(1.25,(leftDoor.rotation.y<0?Math.abs(leftDoor.rotation.y):0)+.018);
+  rightDoor.rotation.y=Math.min(1.25,(rightDoor.rotation.y>0?rightDoor.rotation.y:0)+.018);
+ }
+ renderer.render(scene,camera);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+ camera.aspect=innerWidth/innerHeight;
+ camera.updateProjectionMatrix();
+ renderer.setSize(innerWidth,innerHeight);
+});
 </script>
 </body>
 </html>
