@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#171226">
+<title>A Royal Invitation | Princess Manjira</title>
+<style>
+:root{--lav:#d9c4f4;--silver:#e8e2f0;--gold:#e9cc8c;--ink:#171226}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Georgia,'Times New Roman',serif}
+body{min-height:100svh;color:var(--silver);background:radial-gradient(ellipse at 50% 35%,#51406b 0%,#29213d 38%,#171226 78%);display:grid;place-items:center;overflow-x:hidden;padding:24px}
+body:before,body:after{content:"✦";position:fixed;color:#f1d99c;opacity:.45;font-size:18px;animation:twinkle 3s ease-in-out infinite alternate}
+body:before{top:12%;left:12%}body:after{right:13%;bottom:14%;animation-delay:1.3s}
+@keyframes twinkle{to{opacity:1;transform:scale(1.5)}}
+.wrap{width:min(100%,480px);text-align:center;position:relative}
+.kicker{letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-size:10px;margin:0 0 20px}
+h1{font-weight:normal;line-height:1.2;font-size:clamp(34px,9vw,48px);color:#f1e8fb;margin:0 0 8px;text-shadow:0 3px 24px #c8a7f755}
+.name{font-size:clamp(24px,7vw,32px);color:var(--gold);font-style:italic;margin:0 0 24px}
+.intro{font-size:15px;line-height:1.8;color:#e0d6ed;margin:0 auto 30px;max-width:340px}
+.envelope-area{perspective:1000px;margin:0 auto 26px;width:min(100%,340px);height:230px;display:grid;place-items:center}
+.envelope{position:relative;width:100%;height:190px;background:linear-gradient(145deg,#d9c4f4,#b69bd8);border:1px solid #f1dfb5;box-shadow:0 18px 50px #09071388;border-radius:4px;cursor:pointer;transition:transform .8s ease}
+.envelope:before{content:"";position:absolute;inset:0;background:linear-gradient(33deg,transparent 49.5%,#a88bc9 50%,transparent 50.7%),linear-gradient(-33deg,transparent 49.5%,#c0a6df 50%,transparent 50.7%);opacity:.9}
+.flap{position:absolute;inset:0 0 auto;height:58%;background:linear-gradient(145deg,#eadcf8,#cbb4e7);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .9s ease;z-index:3;border-top:1px solid #f8edcf}
+.seal{position:absolute;z-index:4;left:50%;top:53%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#f4d99b,#a77a36 75%);color:#51351c;font-size:25px;box-shadow:0 3px 12px #37233b88;border:2px solid #f7e4b8;transition:opacity .3s,transform .5s}
+.letter{position:absolute;z-index:2;left:8%;right:8%;top:10px;height:165px;background:#fbf4e8;color:#493b50;padding:18px 12px;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(35px);transition:all .8s ease}
+.letter strong{font-size:17px;font-weight:normal;color:#6c4e86}.letter span{font-size:11px;line-height:1.6;margin-top:9px}
+.envelope.open .flap{transform:rotateX(180deg);z-index:1}.envelope.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.3)}.envelope.open .letter{opacity:1;transform:translateY(-62px)}
+.hint{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#cbb8e0;margin:0 0 18px}
+.enter{display:none;width:100%;border:1px solid #e8d19a;border-radius:3px;padding:16px 18px;background:linear-gradient(120deg,#e9d39e,#c6a76a);color:#352744;font-family:Georgia,serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;box-shadow:0 8px 25px #08061055}
+.enter.show{display:block;animation:fade .8s both}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.footer{font-size:10px;letter-spacing:.2em;color:#a99ab9;margin-top:28px;text-transform:uppercase}
+@media(max-height:700px){body{padding:18px}.envelope-area{height:195px}.envelope{height:165px}.letter{height:145px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="kicker">By royal decree · A private invitation</p>
+  <h1>A Royal Invitation</h1>
+  <p class="name">For Princess Manjira</p>
+  <p class="intro">A little kingdom has been prepared in your honour.<br>But first, a message awaits you…</p>
+  <div class="envelope-area">
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open the sealed royal invitation">
+      <div class="letter"><strong>To Her Royal Highness</strong><span>Your story, your memories, and a little magic are waiting beyond these doors.</span></div>
+      <div class="flap"></div>
+      <div class="seal">♛</div>
+    </div>
+  </div>
+  <p class="hint" id="hint">Tap the royal seal to open your invitation</p>
+  <a class="enter" id="enter" href="https://fdude6126-blip.github.io/the-kingdom-of-manjira/">Enter the Palace&nbsp; ✧</a>
+  <p class="footer">The Manjira Regency · A fairytale made for you</p>
+</main>
+<script>
+const envelope=document.getElementById('envelope');
+const enter=document.getElementById('enter');
+const hint=document.getElementById('hint');
+function openInvitation(){
+  if(envelope.classList.contains('open')) return;
+  envelope.classList.add('open');
+  hint.textContent='Your invitation has been unsealed';
+  window.setTimeout(()=>enter.classList.add('show'),900);
+}
+envelope.addEventListener('click',openInvitation);
+envelope.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInvitation();}});
+</script>
+</body>
+</html>
