@@ -55,6 +55,11 @@
 </style>
 </head>
 <body>
+  
+<audio id="royalMusic" src="snowman.mp3" loop preload="auto"></audio>
+
+<button id="musicToggle" class="hidden" onclick="toggleRoyalMusic()" style="position:fixed;right:14px;bottom:18px;z-index:80;border-radius:30px;padding:12px 16px;background:#332342;color:#ffe5aa;border:1px solid #e7c47e;">♫ MUSIC ON</button>
+  
 <div id="world"></div><div id="status">01 / 05 · THE ARRIVAL</div><div id="hint">A KINGDOM BUILT WITH LOVE</div>
 <div class="hud" id="invitation"><div class="content"><div class="eyebrow">THE MANJIRA REGENCY</div><h1>AN INVITATION</h1><p>Her Royal Highness<br><strong>Princess Manjira</strong></p><p>A special evening awaits.</p><button onclick="approach()">APPROACH THE PALACE</button><button class="secondary" onclick="approach()">SKIP INTRO</button></div></div>
 <div class="hud hidden" id="doorPrompt"><div class="content"><div class="eyebrow">THE GRAND ENTRANCE</div><h1>The doors await</h1><p>Step into your kingdom, Your Highness.</p><button onclick="openDoors()">OPEN THE DOORS</button></div></div>
@@ -150,7 +155,41 @@ let viewerIndex=0;
 function showPhoto(i){viewerIndex=(i+memories.length)%memories.length;const m=memories[viewerIndex];$('viewerImage').src='gallery/'+m.file;$('viewerTime').textContent=m.time||'';$('viewerTitle').textContent=m.title||'';$('viewerCaption').textContent=m.caption;$('photoView').classList.remove('hidden')}
 function closePhoto(e){if(e&&e.target!==$('photoView'))return;$('photoView').classList.add('hidden')}
 function nextMemory(){window.dispatchEvent(new Event('memory-next'))}function previousMemory(){window.dispatchEvent(new Event('memory-prev'))}
-function approach(){window.dispatchEvent(new Event('palace-approach'))}function openDoors(){window.dispatchEvent(new Event('palace-open'))}
+function approach(){window.dispatchEvent(new Event('palace-approach'))}function startRoyalMusic(){
+  const audio=document.getElementById('royalMusic');
+  const button=document.getElementById('musicToggle');
+
+  audio.volume=0.45;
+
+  audio.play().then(()=>{
+    button.textContent='♫ MUSIC ON';
+    button.classList.remove('hidden');
+  }).catch(()=>{
+    button.textContent='♫ TAP FOR MUSIC';
+    button.classList.remove('hidden');
+  });
+}
+
+function toggleRoyalMusic(){
+  const audio=document.getElementById('royalMusic');
+  const button=document.getElementById('musicToggle');
+
+  if(audio.paused){
+    audio.play().then(()=>{
+      button.textContent='♫ MUSIC ON';
+    }).catch(()=>{
+      button.textContent='♫ TAP FOR MUSIC';
+    });
+  }else{
+    audio.pause();
+    button.textContent='♫ MUSIC OFF';
+  }
+}
+
+function openDoors(){
+  startRoyalMusic();
+  window.dispatchEvent(new Event('palace-open'));
+}
 function enterGallery(){window.dispatchEvent(new Event('palace-gallery'))}function enterBallroom(){window.dispatchEvent(new Event('palace-ballroom'))}
 function returnToHall(){window.dispatchEvent(new Event('palace-return'))}
 function readBallroomPlaque(){$('plaqueModal').classList.remove('hidden')}
